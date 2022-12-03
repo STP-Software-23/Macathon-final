@@ -5,9 +5,25 @@
 //           0 for individual 1 for team lead
 if(isset($_POST['submit'])){
 
+    // $flag = 0;
+    // $userName = "Myname";
+    // $Phone = "01060860770";
+    // $email ="ofahmy1234@gmail.com";
+    // $faculty = "foe";
+    // $graduationYear = 2024;
+    // $university ="ASU";
+    // $whyQuestionAns = "any";
+    // $experience = "ANY";
+    // // Generate a unique code for each team.
+    // $teamCode = mt_rand(1000000, 9999999);
+    // // we should not have two teams with the same name
+    // $teamName = "GO";
+    // // range between min 3 to max 5
+    // $teamNum =2;    
+
 $flag = htmlspecialchars($_POST['role']);
 $userName = htmlspecialchars($_POST['name']);
-$Phone = htmlspecialchars($_POST['']);
+$Phone = htmlspecialchars($_POST['phone']);
 $email = htmlspecialchars($_POST['email']);
 $faculty = htmlspecialchars($_POST['faculty']);
 $graduationYear = htmlspecialchars($_POST['graduationYear']);
@@ -20,6 +36,11 @@ $teamCode = mt_rand(1000000, 9999999);
 $teamName = htmlspecialchars($_POST['teamName']);
 // range between min 3 to max 5
 $teamNum = htmlspecialchars($_POST['teamNum']);
+
+//include('uploadCV.php');
+
+echo "<script> alert('Interrupt')</script>";
+
 
 
 if (
@@ -47,7 +68,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 // team size range 2 to 5
-if ($teamNum < 3 || $teamNum > 5) {
+if ($teamNum < 2 || $teamNum > 5) {
     die("team size range from 3 to 5.");
 }
 
@@ -86,8 +107,8 @@ if (findInDatabase($mysqli, "email", $email)) {
 if($flag == 1){
 try {
     $sql = "INSERT INTO team_lead (user_name, phone, email, faculty, 
-graduation_year, university, why_question_ans, experience, team_code, team_name, team_num)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+graduation_year, university, why_question_ans, experience, team_code, team_name, team_num ,CV)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?)";
 
 
     if (!$stmt->prepare($sql)) {
@@ -95,7 +116,7 @@ graduation_year, university, why_question_ans, experience, team_code, team_name,
     }
 
     $stmt->bind_param(
-        "sssssssssss",
+        "ssssssssssss",
         $userName,
         $Phone,
         $email,
@@ -106,7 +127,8 @@ graduation_year, university, why_question_ans, experience, team_code, team_name,
         $experience,
         $teamCode,
         $teamName,
-        $teamNum
+        $teamNum,
+        $fileDestination
     );
 } catch (Exception $e) {
     echo 'Message: ' . $e->getMessage();
@@ -114,8 +136,8 @@ graduation_year, university, why_question_ans, experience, team_code, team_name,
 }else{
     try {
         $sql = "INSERT INTO individual_M (user_name, phone, email, faculty, 
-    graduation_year, university, why_question_ans, experience, team_code)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?)";
+    graduation_year, university, why_question_ans, experience, team_code ,CV)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?,?)";
     
     
         if (!$stmt->prepare($sql)) {
@@ -123,7 +145,7 @@ graduation_year, university, why_question_ans, experience, team_code, team_name,
         }
     
         $stmt->bind_param(
-            "sssssssss",
+            "ssssssssss",
             $userName,
             $Phone,
             $email,
@@ -133,6 +155,7 @@ graduation_year, university, why_question_ans, experience, team_code, team_name,
             $whyQuestionAns,
             $experience,
             $teamCode,
+            $fileDestination
         );
     } catch (Exception $e) {
         echo 'Message: ' . $e->getMessage();
@@ -155,5 +178,6 @@ try {
 }
 
 
-echo 'All is done well Now!<br>';
-}
+echo "<script> alert('All is done well Now!')</script>";
+ }
+?>

@@ -3,11 +3,9 @@
 
 
 
-    // $targetDir = "CVs/";
-    // $targetFile = $targetDir . basename($_FILES["CV"]['name']); 
-        // echo "<script> alert('$targetFile')</script>";
 
-    $file = $_FILES['file'];
+
+    $file = $_FILES['cv'];
     //print_r($file);
     $fileName = $file['name'];
     $fileTmpName = $file['tmp_name'];

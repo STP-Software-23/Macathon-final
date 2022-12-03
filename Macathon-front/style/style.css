@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url(./bg-logo.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+
+h1,
+h5 {
+  text-align: center;
+}
+
+.headline {
+  color: #d90429;
+}
+
+.page-wrapper {
+  opacity: 0.89;
+  font-size: 20px;
+}
+
+.adjust-card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-switch {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  /* flex-direction: column; */
+}
+
+#page-wrapper {
+  padding: 70px 0;
+  /* width: 80vh;  this is the problem for the width scolling  new */
+
+}
+
+.form-control:focus {
+  border-color: #8a817c;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(73, 73, 73, 0.6);
+}
+
+.custom-select:focus {
+  border-color: #8a817c;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(73, 73, 73, 0.6);
+}
+
+.switch {
+  position: relative;
+  width: 60px;
+  height: 34px;
+  /*
+display: inline-block;
+left:50%; 
+insted of using left 50% we can set the item to block and give it (margin: 0 auto;)  new
+
+*/
+  display: block;
+  margin: 20px auto;
+
+}
+
+/* .switch input { */
+  /* opacity: 0; */
+  /* width: 0;
+  height: 0; */
+/* } */
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #d90429;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: #868383;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #868383;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+.form-group {
+  position: relative;
+  /* setting the div to be the limit for the icon (his nearest relative )   new */
+}
+
+.form-group>i {
+  position: absolute;
+  /* setting the icon to be on the left   new */
+  margin: 15px 10px;
+  /* centering the icon   */
+}
+
+.form-group>input,
+.form-group>select {
+  padding: 10px 40px;
+  /*to give some space for the icon   new  */
+}
+
+select.form-control:not([size]):not([multiple]) {
+  height: auto !important;
+  /* the default bootstrap height won't fit the content so we set it to be auto   new */
+}
+
+form {
+  padding:4%;
+}
+
+#team {
+  margin-bottom:10px ;
+}
