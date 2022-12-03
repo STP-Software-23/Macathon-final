@@ -6,7 +6,7 @@
 $flag = 0;
 $userName = "My name";
 $Phone = "01011111111";
-$email = "example00@gmail.com";
+$email = "example2222@gmail.com";
 $faculty = "my faculty";
 $graduationYear = "2023";
 $university = "abc University";
@@ -80,6 +80,8 @@ if (findInDatabase($mysqli, "email", $email)) {
 
 
 // Insert the data into db
+// Assume flag =0 means team leader
+if($flag == 0){
 try {
     $sql = "INSERT INTO team_lead (user_name, phone, email, faculty, 
 graduation_year, university, why_question_ans, experience, team_code, team_name, team_num)
@@ -107,11 +109,41 @@ graduation_year, university, why_question_ans, experience, team_code, team_name,
 } catch (Exception $e) {
     echo 'Message: ' . $e->getMessage();
 }
-
+}else{
+    try {
+        $sql = "INSERT INTO individual_M (user_name, phone, email, faculty, 
+    graduation_year, university, why_question_ans, experience, team_code)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?)";
+    
+    
+        if (!$stmt->prepare($sql)) {
+            die("SQL error: ......................." . $mysqli->error);
+        }
+    
+        $stmt->bind_param(
+            "sssssssss",
+            $userName,
+            $Phone,
+            $email,
+            $faculty,
+            $graduationYear,
+            $university,
+            $whyQuestionAns,
+            $experience,
+            $teamCode,
+        );
+    } catch (Exception $e) {
+        echo 'Message: ' . $e->getMessage();
+    }
+}
 
 try {
     if ($stmt->execute()) {
         // Redirect...
+        if($flag ==0) {
+            include('sendMail.php');
+        }
+
         echo 'All is good to go!<br>';
     } else {
         die($mysqli->error . " " . $mysqli->errno);
@@ -121,42 +153,4 @@ try {
 }
 
 
-//Sending Email for the team leader.
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require 'vendor/autoload.php';
-
-$mail = new PHPMailer(true);
-
-try {
-    //set up php mailer settings
-    $mail->SMTPDebug = false;
-    $mail->isSMTP();
-    $mail->Host     = 'smtp.gmail.com;';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'macathon4.0@gmail.com';
-    $mail->Password = 'hqupflszfoaimbob';
-    $mail->SMTPSecure = 'tls';
-    $mail->Port = 587;
-
-    // set up sender and receiver
-    $mail->setFrom('macathon4.0@gmail.com', 'Macathon4.0');
-    $mail->addAddress($email);
-
-    //send email subject and body
-    $mail->isHTML(true);
-    $mail->Subject = 'Macathon team code';
-    $mail->Body = "<h5> Hello " . $userName . " </h5><br> 
-    Hope all is well with you. <br>
-    Thank you for registration, your team code is <b> " . $teamCode . "</b><br>
-    Send form <a href='https://www.w3schools.com'>Link!</a> for your members.<br>
-    Have a nice day! ";
-    $mail->AltBody = 'Body in plain text for non-HTML mail clients';
-    $mail->send();
-    echo "Mail has been sent successfully!<br>";
-} catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-}
 echo 'All is done well Now!<br>';
