@@ -6,7 +6,7 @@
 
 
     $file = $_FILES['cv'];
-    //print_r($file);
+    print_r($file);
     $fileName = $file['name'];
     $fileTmpName = $file['tmp_name'];
     $fileSize = $file['size'];

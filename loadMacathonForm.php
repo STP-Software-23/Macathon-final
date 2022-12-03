@@ -1,11 +1,11 @@
 <?php
-echo "<script> alert('Interrupt')</script>";
 
 //First-->
 //           Check if it's an individual or team leader
 //           boolean to store the data in which table in database 
 //           0 for individual 1 for team lead
  if(isset($_POST['submit'])){
+    echo "<script> alert('Interrupt')</script>";
 
     // $flag = 1;
     // $userName = "Myname";
@@ -22,7 +22,7 @@ echo "<script> alert('Interrupt')</script>";
     // $teamName = "GO";
     // // range between min 3 to max 5
     // $teamNum =2;    
-    $fileDestination = 'sadsdadada';
+    // $fileDestination = 'sadsdadada';
 
 $flag = htmlspecialchars($_POST['role']);
 $userName = htmlspecialchars($_POST['name']);
