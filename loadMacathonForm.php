@@ -3,21 +3,23 @@
 //           Check if it's an individual or team leader
 //           boolean to store the data in which table in database 
 //           0 for individual 1 for team lead
-$flag = 0;
-$userName = "My name";
-$Phone = "01011111111";
-$email = "example2222@gmail.com";
-$faculty = "my faculty";
-$graduationYear = "2023";
-$university = "abc University";
-$whyQuestionAns = "because bla bla bla!";
-$experience = "First time!!!";
+if(isset($_POST['submit'])){
+
+$flag = htmlspecialchars($_POST['role']);
+$userName = htmlspecialchars($_POST['name']);
+$Phone = htmlspecialchars($_POST['']);
+$email = htmlspecialchars($_POST['email']);
+$faculty = htmlspecialchars($_POST['faculty']);
+$graduationYear = htmlspecialchars($_POST['graduationYear']);
+$university = htmlspecialchars($_POST['university']);
+$whyQuestionAns = htmlspecialchars($_POST['whyJoin']);
+$experience = htmlspecialchars($_POST['experiance']);
 // Generate a unique code for each team.
 $teamCode = mt_rand(1000000, 9999999);
 // we should not have two teams with the same name
-$teamName = "Go";
+$teamName = htmlspecialchars($_POST['teamName']);
 // range between min 3 to max 5
-$teamNum = 5;
+$teamNum = htmlspecialchars($_POST['teamNum']);
 
 
 if (
@@ -80,8 +82,8 @@ if (findInDatabase($mysqli, "email", $email)) {
 
 
 // Insert the data into db
-// Assume flag =0 means team leader
-if($flag == 0){
+// Assume flag =0 means individual
+if($flag == 1){
 try {
     $sql = "INSERT INTO team_lead (user_name, phone, email, faculty, 
 graduation_year, university, why_question_ans, experience, team_code, team_name, team_num)
@@ -140,7 +142,7 @@ graduation_year, university, why_question_ans, experience, team_code, team_name,
 try {
     if ($stmt->execute()) {
         // Redirect...
-        if($flag ==0) {
+        if($flag == 1) {
             include('sendMail.php');
         }
 
@@ -154,3 +156,4 @@ try {
 
 
 echo 'All is done well Now!<br>';
+}
