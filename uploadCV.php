@@ -17,6 +17,7 @@
     $fileExt = explode('.' , $fileName);
     // extension is the second (last) piece of data
     $fileActualExt = strtolower(end($fileExt));
+    $fileDestination = 'null';
 
     $allowed = [
         'pdf'
